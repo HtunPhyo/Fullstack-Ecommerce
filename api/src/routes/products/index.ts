@@ -11,7 +11,8 @@ const productsRouter = Router();
 
 productsRouter.get("/", listProducts);
 
-productsRouter.get("/:id", getProductById);
+// /123  '123' in this is a path parameter
+productsRouter.get("/:id", getProductById); // :id is a parameter , route parameter or path parameter
 
 productsRouter.post("/", createProduct);
 

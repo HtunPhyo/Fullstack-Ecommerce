@@ -1,7 +1,12 @@
-import express from "express";
+import express, { json, urlencoded } from "express";
 import productsRouter from "./routes/products";
 
 const app = express();
+
+app.use(json()); // use json middleware, view data from body
+
+app.use(urlencoded({ extended: false })); // don't no why add this
+
 const port = 3000;
 
 app.get("/", (req, res) => {
