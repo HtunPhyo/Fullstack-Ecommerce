@@ -32,11 +32,36 @@ export async function getProductById(req: Request, res: Response) {
 }
 
 export async function createProduct(req: Request, res: Response) {
+  console.log(req.userId);
+  const { name, description, image, price } = req.body;
+
+  //Validate 'name' and 'price' are present and valid
+  if (typeof name !== "string" || name.length === 0 || name.length > 255) {
+    res.status(400).json({
+      error: "'name' must be a non-empty string of max 255 characters",
+    });
+  }
+
+  if (typeof price !== "number" || isNaN(price) || price < 0) {
+    res.status(400).json({ error: "'price' must be a valid number" });
+  }
+
+  // Validate 'description' and 'image' if they exist
+  if (description && typeof description !== "string") {
+    res.status(400).json({ error: "'description' must be a string" });
+  }
+
+  if (image && (typeof image !== "string" || image.length > 255)) {
+    res
+      .status(400)
+      .json({ error: "'image' must be a string of max 255 characters" });
+  }
   try {
+    const { name, price } = req.body;
     //returning give us an arry so we need to destructure
     const [product] = await db
       .insert(productsTable)
-      .values(req.body)
+      .values({ name, description, image, price })
       .returning();
 
     res.status(201).json(product);
