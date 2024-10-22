@@ -6,7 +6,6 @@ import {
   text,
   doublePrecision,
 } from "drizzle-orm/pg-core";
-import { desc, sql } from "drizzle-orm";
 
 export const productsTable = pgTable("products", {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),

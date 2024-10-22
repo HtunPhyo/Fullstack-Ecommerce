@@ -1,7 +1,7 @@
 import { Router } from "express";
 import bcrypt from "bcryptjs";
-import { db } from "../../db";
-import { usersTable } from "../../db/userSchema";
+import { db } from "../../db/index.js";
+import { usersTable } from "../../db/userSchema.js";
 import { eq } from "drizzle-orm";
 import jwt from "jsonwebtoken";
 
