@@ -1,7 +1,8 @@
 import express, { json, urlencoded } from "express";
-import productsRouter from "./routes/products/index.js";
-import authRouter from "./routes/auth/index.js";
+import productRouter from "./routes/products/productRouter.js";
+import authRouter from "./routes/auth/authRouter.js";
 import serverless from "serverless-http";
+import orderRouter from "./routes/orders/orderRouter.js";
 
 const app = express();
 
@@ -16,10 +17,13 @@ app.get("/", (req, res) => {
 });
 
 // use products router
-app.use("/products", productsRouter);
+app.use("/products", productRouter);
 
 // use auth router
 app.use("/auth", authRouter);
+
+// use order router
+app.use("/orders", orderRouter);
 
 if (process.env.NODE_ENV !== "dev") {
   app.listen(port, () => {
